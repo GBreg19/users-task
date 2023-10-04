@@ -2,107 +2,51 @@ import { useState, useEffect } from "react";
 import { User, columns } from "../components/columns";
 import { DataTable } from "../components/data-table";
 import axios from "axios";
-
-async function getData(): Promise<User[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: "728ed52f",
-      name: "vigaca",
-      email: "pending",
-      city: "m@example.com",
-    },
-    {
-      id: "728ed52fe",
-      name: "vigaca",
-      email: "example@gmail.com",
-      city: "m@example.com",
-    },
-    {
-      id: "728ed52fe",
-      name: "vigaca",
-      email: "example@gmail.com",
-      city: "m@example.com",
-    },
-    {
-      id: "728ed52fe",
-      name: "vigaca",
-      email: "example@gmail.com",
-      city: "m@example.com",
-    },
-    {
-      id: "728ed52fe",
-      name: "vigaca",
-      email: "example@gmail.com",
-      city: "m@example.com",
-    },
-    {
-      id: "728ed52fe",
-      name: "vigaca",
-      email: "example@gmail.com",
-      city: "m@example.com",
-    },
-    {
-      id: "728ed52fe",
-      name: "vigaca",
-      email: "example@gmail.com",
-      city: "m@example.com",
-    },
-    {
-      id: "728ed52fe",
-      name: "vigaca",
-      email: "example@gmail.com",
-      city: "m@example.com",
-    },
-    {
-      id: "728ed52fe",
-      name: "vigaca",
-      email: "example@gmail.com",
-      city: "m@example.com",
-    },
-    {
-      id: "728ed52fe",
-      name: "vigaca",
-      email: "example@gmail.com",
-      city: "m@example.com",
-    },
-    {
-      id: "728ed52fe",
-      name: "ragaca",
-      email: "example@gmail.com",
-      city: "m@example.com",
-    },
-    // ...
-  ];
-}
+import Loader from "../components/loader";
+import ErrorMessage from "@/components/error-message";
+import Card from "@/components/card";
 
 const UsersTable = () => {
-  const [data, setData] = useState<User[] | null>(null);
+  const [usersData, setUsersData] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string>("");
+
+  interface FetchedUser {
+    id: number;
+    name: string;
+    email: string;
+    address: {
+      city: string;
+    };
+  }
 
   useEffect(() => {
     const apiUrl = "https://jsonplaceholder.typicode.com/users";
-    const userObj = {};
+    setLoading(true);
 
     async function fetchData() {
       try {
-        const response = await axios.get(apiUrl);
-        const newObj = response.data.map((user: {}) => {
-          console.log(user);
+        const response = await axios.get<FetchedUser[]>(apiUrl);
+
+        const convertedUserObj = response.data.map((user) => {
           const obj: User = {
-            id: "",
-            name: "",
-            email: "",
-            city: "",
+            id: user.id.toString(),
+            name: user.name,
+            email: user.email,
+            city: user.address.city,
           };
-          obj.id = user.id;
+          return obj;
         });
-        const result = await getData();
-        setData(result);
+
+        setUsersData(convertedUserObj);
+        setLoading(false);
       } catch (error) {
-        // Handle error
-        console.error("Error fetching data:", error);
+        setLoading(false);
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          setError("An error occured");
+        }
       }
     }
 
@@ -110,9 +54,11 @@ const UsersTable = () => {
   }, []);
 
   return (
-    <div className="container mx-auto py-10">
-      {data ? <DataTable columns={columns} data={data} /> : <p>Loading...</p>}
-    </div>
+    <Card>
+      {loading && <Loader />}
+      {!loading && error && <ErrorMessage errorMessage={error} />}
+      {!loading && !error && <DataTable columns={columns} data={usersData} />}
+    </Card>
   );
 };
 

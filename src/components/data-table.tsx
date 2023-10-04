@@ -32,7 +32,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div>
+    <div className="w-2/3 transition-opacity duration-700 opacity-100">
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -85,6 +85,7 @@ export function DataTable<TData, TValue>({
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <Button
+        className=""
           variant="outline"
           size="sm"
           onClick={() => table.previousPage()}
