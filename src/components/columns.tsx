@@ -9,15 +9,16 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { UsersObject } from "@/store/users-slice";
 
-export type User = {
-  id: string;
-  name: string;
-  email: string;
-  city: string;
-};
+// export type User = {
+//   id: string;
+//   name: string;
+//   email: string;
+//   city: string;
+// };
 
-export const columns: ColumnDef<User>[] = [
+export const columns: ColumnDef<UsersObject>[] = [
   { accessorKey: "name", header: "Name" },
   { accessorKey: "email", header: "Email" },
   { accessorKey: "city", header: "City" },
@@ -29,17 +30,26 @@ export const columns: ColumnDef<User>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0 hover:text-slate-100 hover:bg-transparent">
+            <Button
+              variant="ghost"
+              className="h-8 w-8 p-0 hover:text-slate-100 hover:bg-transparent"
+            >
               <span className="sr-only">Open menu</span>
               <MoreHorizontal className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => console.log(user)}>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => console.log(user)}
+            >
               Edit
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => console.log(user)}>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => console.log(user)}
+            >
               Delete
             </DropdownMenuItem>
           </DropdownMenuContent>

@@ -1,56 +1,18 @@
-import { useState, useEffect } from "react";
-import { User, columns } from "../components/columns";
+import { useEffect } from "react";
+import { columns } from "../components/columns";
 import { DataTable } from "../components/data-table";
-import axios from "axios";
 import Loader from "../components/loader";
 import ErrorMessage from "@/components/error-message";
 import Card from "@/components/card";
+import { fetchUsers } from "@/store/users-slice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 const UsersTable = () => {
-  const [usersData, setUsersData] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string>("");
-
-  interface FetchedUser {
-    id: number;
-    name: string;
-    email: string;
-    address: {
-      city: string;
-    };
-  }
+  const { usersData, loading, error } = useAppSelector((state) => state.users);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const apiUrl = "https://jsonplaceholder.typicode.com/users";
-    setLoading(true);
-
-    async function fetchData() {
-      try {
-        const response = await axios.get<FetchedUser[]>(apiUrl);
-
-        const convertedUserObj = response.data.map((user) => {
-          const obj: User = {
-            id: user.id.toString(),
-            name: user.name,
-            email: user.email,
-            city: user.address.city,
-          };
-          return obj;
-        });
-
-        setUsersData(convertedUserObj);
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-        if (error instanceof Error) {
-          setError(error.message);
-        } else {
-          setError("An error occured");
-        }
-      }
-    }
-
-    fetchData();
+    dispatch(fetchUsers());
   }, []);
 
   return (
