@@ -6,6 +6,8 @@ import "./index.css";
 import ErrorPage from "./error-page.tsx";
 import UsersTable from "./routes/users-table.tsx";
 import PersonalPage from "./routes/personal-page.tsx";
+import { Provider } from "react-redux";
+import { store } from "./store/store.ts";
 
 const router = createBrowserRouter([
   {
@@ -16,17 +18,17 @@ const router = createBrowserRouter([
   {
     path: "/users",
     element: <UsersTable />,
-    children: [
-      {
-        path: "/users/:userId",
-        element: <PersonalPage />,
-      },
-    ],
+  },
+  {
+    path: "users/user-page/:userId",
+    element: <PersonalPage />,
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );

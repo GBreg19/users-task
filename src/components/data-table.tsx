@@ -14,6 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useNavigate } from "react-router-dom";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -30,6 +31,12 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
+
+  // const navigate = useNavigate();
+
+  // const onRowClickHandler = (id: string) => {
+  //   navigate(`/user-page/${id}`);
+  // };
 
   return (
     <div className="w-2/3 transition-opacity duration-700 opacity-100">
@@ -57,8 +64,12 @@ export function DataTable<TData, TValue>({
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
+                  // onClick={() => onRowClickHandler(row.id)}
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  title={`Click to open ${
+                    (row.original as any).name
+                  }'s profile`}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

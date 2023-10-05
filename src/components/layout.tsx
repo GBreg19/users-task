@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
 
-interface CardProps {
+interface LayoutProps {
   children: ReactNode;
 }
 
-const Card = ({ children }: CardProps) => {
+const Layout = ({ children }: LayoutProps) => {
   return <div className="h-screen flex items-center justify-center">{children}</div>;
 };
 
-export default Card;
+export default Layout;

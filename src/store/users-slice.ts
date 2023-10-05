@@ -21,19 +21,23 @@ interface UsersState {
   usersData: UsersObject[];
   loading: boolean;
   error: string | null;
+  deleting: boolean;
+  editing: boolean;
 }
 
 const initialState: UsersState = {
   usersData: [],
   loading: false,
   error: null,
+  deleting: false,
+  editing: false,
 };
 
 export const fetchUsers = createAsyncThunk<
   UsersObject[],
   void,
   { rejectValue: string }
->("users/fetchUsers", async (_, thunkAPI) => {
+>("users/fetchUsers", async () => {
   const apiUrl = "https://jsonplaceholder.typicode.com/users";
   try {
     const response = await axios.get<UsersObject[]>(apiUrl);
@@ -57,7 +61,11 @@ export const fetchUsers = createAsyncThunk<
     });
     return convertedUserObj;
   } catch (error) {
-    return thunkAPI.rejectWithValue("Failed to fetch issues.");
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    } else {
+      throw new Error("An unknown error occurred.");
+    }
   }
 });
 
@@ -65,8 +73,14 @@ export const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    editUser: (state, action: PayloadAction<number>) => {},
+    isDeleting: (state) => {
+      state.deleting = true;
+    },
     removeUser: (state) => {},
+    isEditing: (state) => {
+      state.editing = true;
+    },
+    editUser: (state, action: PayloadAction<number>) => {},
   },
   extraReducers: (builder) => {
     builder
@@ -84,6 +98,7 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { editUser, removeUser } = usersSlice.actions;
+export const { editUser, removeUser, isDeleting, isEditing } =
+  usersSlice.actions;
 
 export default usersSlice.reducer;
