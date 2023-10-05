@@ -1,7 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { access } from "fs";
-// import { RootState } from "./store";
 
 export interface UsersObject {
   id: number;
@@ -87,8 +85,5 @@ export const usersSlice = createSlice({
 });
 
 export const { editUser, removeUser } = usersSlice.actions;
-
-// Other code such as selectors can use the imported `RootState` type
-// export const selectUser = (state: RootState) => state.users.value;
 
 export default usersSlice.reducer;

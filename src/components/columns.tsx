@@ -11,17 +11,10 @@ import {
 } from "./ui/dropdown-menu";
 import { UsersObject } from "@/store/users-slice";
 
-// export type User = {
-//   id: string;
-//   name: string;
-//   email: string;
-//   city: string;
-// };
-
 export const columns: ColumnDef<UsersObject>[] = [
   { accessorKey: "name", header: "Name" },
   { accessorKey: "email", header: "Email" },
-  { accessorKey: "city", header: "City" },
+  { accessorKey: "address.city", header: "City" },
   {
     id: "actions",
     cell: ({ row }) => {
