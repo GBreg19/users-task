@@ -10,7 +10,7 @@ import { store } from "./store/store.ts";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/users-task/",
     element: <UsersTable />,
     errorElement: <ErrorPage />,
   },
