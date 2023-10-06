@@ -13,7 +13,7 @@ const PersonalPage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchUsers(Number(params.userId)));
+    dispatch(fetchUsers({ actionType: "GET", id: Number(params.userId) }));
   }, [dispatch, params.userId]);
 
   const user = usersData[0];

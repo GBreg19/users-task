@@ -17,6 +17,8 @@ interface UsersState {
   error: string | null;
   deleting: boolean;
   editing: boolean;
+  successMessage: string | null;
+  errorMessage: string | null;
 }
 
 const initialState: UsersState = {
@@ -25,21 +27,48 @@ const initialState: UsersState = {
   error: null,
   deleting: false,
   editing: false,
+  successMessage: "",
+  errorMessage: "",
 };
 
 export const fetchUsers = createAsyncThunk<
   UsersObject[],
-  number | void,
+  {
+    id?: number;
+    updatedUser?: UsersObject;
+    actionType: "GET" | "PUT" | "DELETE";
+  },
   { rejectValue: string }
->("users/fetchUsers", async (id?) => {
+>("users/fetchUsers", async ({ id, updatedUser, actionType }) => {
   const apiUrl = "http://localhost:8000/users";
   try {
-    if (id) {
-      const resp = await axios.get<UsersObject>(`${apiUrl}/${id}`);
-      return [resp.data];
+    let resp;
+    switch (actionType) {
+      case "GET":
+        if (id) {
+          resp = await axios.get<UsersObject>(`${apiUrl}/${id}`);
+          return [resp.data];
+        } else {
+          resp = await axios.get<UsersObject[]>(apiUrl);
+          return resp.data;
+        }
+      case "PUT":
+        if (id && updatedUser) {
+          resp = await axios.put<UsersObject>(`${apiUrl}/${id}`, updatedUser);
+          return [resp.data];
+        } else {
+          throw new Error("Invalid PUT request arguments");
+        }
+      case "DELETE":
+        if (id) {
+          resp = await axios.delete<UsersObject>(`${apiUrl}/${id}`);
+          return [resp.data];
+        } else {
+          throw new Error("Invalid DELETE request arguments");
+        }
+      default:
+        throw new Error("Invalid actionType");
     }
-    const resp = await axios.get<UsersObject[]>(apiUrl);
-    return resp.data;
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(error.message);
@@ -71,6 +100,13 @@ export const usersSlice = createSlice({
       );
       state.usersData = updatedUsersData;
     },
+    setSuccessMessage: (state, action: PayloadAction<string | null>) => {
+      state.successMessage = action.payload;
+    },
+
+    setErrorMessage: (state, action: PayloadAction<string | null>) => {
+      state.errorMessage = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -79,11 +115,38 @@ export const usersSlice = createSlice({
       })
       .addCase(fetchUsers.fulfilled, (state, action) => {
         state.loading = false;
-        state.usersData = action.payload;
+
+        if (action.meta.arg.actionType === "GET") {
+          state.usersData = action.payload;
+        }
+
+        if (action.meta.arg.actionType === "DELETE") {
+          const [deletedUser] = action.payload;
+          state.usersData = state.usersData.filter(
+            (user) => user.id !== deletedUser.id
+          );
+          state.successMessage = "User deleted successfully";
+        }
+
+        if (action.meta.arg.actionType === "PUT") {
+          const [updatedUser] = action.payload;
+          state.usersData = state.usersData.map((user) =>
+            user.id === updatedUser.id ? updatedUser : user
+          );
+          state.successMessage = "User updated successfully";
+        }
       })
       .addCase(fetchUsers.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Something went wrong!";
+
+        if (action.meta.arg.actionType === "PUT") {
+          state.errorMessage = "Failed to update user.";
+        }
+
+        if (action.meta.arg.actionType === "DELETE") {
+          state.errorMessage = "Failed to delete user.";
+        }
       });
   },
 });

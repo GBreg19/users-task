@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
-import { UsersObject, editUser, isEditing } from "@/store/users-slice";
+import { UsersObject, editUser, fetchUsers, isEditing } from "@/store/users-slice";
 import { useAppDispatch } from "@/store/hooks";
 
 interface FormProps {
@@ -49,7 +49,7 @@ function UserForm({ user }: FormProps) {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     if (user) {
-      const valuesObj = {
+      const updatedUser = {
         id: user.id,
         name: values.name,
         email: values.email,
@@ -58,7 +58,7 @@ function UserForm({ user }: FormProps) {
           city: values.city,
         },
       };
-      dispatch(editUser(valuesObj));
+      dispatch(fetchUsers({ actionType: 'PUT', id: user.id, updatedUser }));
     }
     dispatch(isEditing(false))
   }

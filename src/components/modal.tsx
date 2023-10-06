@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   UsersObject,
+  fetchUsers,
   isDeleting,
   isEditing,
   removeUser,
@@ -24,10 +25,17 @@ const Modal = ({ selectedUser }: ModalProps) => {
     dispatch(isEditing(false));
   };
 
-  const userDeleteHandler = () => {
+  const userDeleteHandler = async () => {
     if (selectedUser) {
-      dispatch(removeUser(selectedUser.id));
-      dispatch(isDeleting(false));
+      try {
+        await dispatch(
+          fetchUsers({ actionType: "DELETE", id: selectedUser.id })
+        );
+        dispatch(removeUser(selectedUser.id));
+        dispatch(isDeleting(false));
+      } catch (error) {
+        console.error("Error deleting user:", error);
+      }
     }
   };
 
