@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
-import { UsersObject, editUser, fetchUsers, isEditing } from "@/store/users-slice";
+import { UsersObject, fetchUsers, isEditing } from "@/store/users-slice";
 import { useAppDispatch } from "@/store/hooks";
 
 interface FormProps {
