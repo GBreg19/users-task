@@ -47,17 +47,25 @@ const UsersTable = () => {
     dispatch(fetchUsers());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (selectedUser) {
-      setSuccess(usersData.some((user) => user !== selectedUser));
+  const usersPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(usersData.length / usersPerPage);
 
-      const timeoutId = setTimeout(() => {
-        setSuccess(false);
-      }, 1000);
+  const startIndex = (currentPage - 1) * usersPerPage;
+  const endIndex = startIndex + usersPerPage;
+  const displayedUsers = usersData.slice(startIndex, endIndex);
 
-      return () => clearTimeout(timeoutId);
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
     }
-  }, [usersData]);
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   return (
     <Layout>
@@ -75,7 +83,7 @@ const UsersTable = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {usersData.map((user) => {
+              {displayedUsers.map((user) => {
                 return (
                   <TableRow key={user.id}>
                     <TableCell
@@ -123,7 +131,24 @@ const UsersTable = () => {
                 );
               })}
             </TableBody>
+            <div className="flex gap-3 mt-3 justify-center">
+              <Button
+                className="bg-slate-100 hover:bg-slate-300 text-black"
+                onClick={handlePreviousPage}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </Button>
+              <Button
+                className="bg-slate-100 hover:bg-slate-300 text-black"
+                onClick={handleNextPage}
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </Button>
+            </div>
           </Table>
+
           {(deleting || editing) && <Modal selectedUser={selectedUser} />}
           {success && <AlertMessage setFunc={setSuccess} />}
         </>

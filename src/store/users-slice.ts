@@ -7,13 +7,7 @@ export interface UsersObject {
   email: string;
   address: {
     street: string;
-    suite: string;
     city: string;
-    zipcode: string;
-    geo: {
-      lat: string;
-      lng: string;
-    };
   };
 }
 
@@ -38,9 +32,9 @@ export const fetchUsers = createAsyncThunk<
   number | void,
   { rejectValue: string }
 >("users/fetchUsers", async (id?) => {
-  const apiUrl = "https://jsonplaceholder.typicode.com/users";
+  const apiUrl = "http://localhost:8000/users";
   try {
-    if (typeof id === "number") {
+    if (id) {
       const resp = await axios.get<UsersObject>(`${apiUrl}/${id}`);
       return [resp.data];
     }
@@ -70,7 +64,13 @@ export const usersSlice = createSlice({
     isEditing: (state, action) => {
       state.editing = action.payload;
     },
-    editUser: (state, action: PayloadAction<number>) => {},
+    editUser: (state, action: PayloadAction<UsersObject>) => {
+      const updatedUser = action.payload;
+      const updatedUsersData = state.usersData.map((user) =>
+        user.id === updatedUser.id ? updatedUser : user
+      );
+      state.usersData = updatedUsersData;
+    },
   },
   extraReducers: (builder) => {
     builder

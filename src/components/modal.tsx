@@ -6,15 +6,19 @@ import {
   removeUser,
 } from "@/store/users-slice";
 import { Button } from "./ui/button";
+import UserForm from "./user-form";
+import UserCard from "./user-card";
+import { useState } from "react";
 
 interface ModalProps {
   selectedUser: UsersObject | null;
 }
 
 const Modal = ({ selectedUser }: ModalProps) => {
+  const [isEditingUser, setIsEditingUser] = useState(false);
   const { editing, deleting } = useAppSelector((store) => store.users);
   const dispatch = useAppDispatch();
-  
+
   const cancelAction = () => {
     dispatch(isDeleting(false));
     dispatch(isEditing(false));
@@ -35,18 +39,14 @@ const Modal = ({ selectedUser }: ModalProps) => {
       ></div>
       {editing && (
         <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-50 w-full max-w-lg border bg-cyan-950 text-white p-6 shadow-lg duration-200 flex flex-col gap-5 rounded-lg">
-          <div>diviauri</div>
-          <div className="flex gap-3">
-            <Button
-              onClick={cancelAction}
-              className="bg-slate-100 text-black hover:bg-slate-300"
-            >
-              Cancel
-            </Button>
-            <Button className="bg-slate-100 text-black hover:bg-slate-300">
-              Continue
-            </Button>
-          </div>
+          {isEditingUser && <UserForm user={selectedUser} />}
+          {!isEditingUser && (
+            <UserCard
+              user={selectedUser}
+              setIsEditing={setIsEditingUser}
+              modal
+            />
+          )}
         </div>
       )}
       {deleting && (
