@@ -1,5 +1,11 @@
-import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { fetchUsers } from "@/store/users-slice";
+import ErrorMessage from "@/components/error-message";
 import Layout from "../components/layout";
+import Loader from "../components/loader";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,27 +14,24 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { fetchUsers } from "@/store/users-slice";
-import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 
 const PersonalPage = () => {
-    const navigate = useNavigate()
+  const { usersData, loading, error } = useAppSelector((state) => state.users);
+  const navigate = useNavigate();
   const params = useParams();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchUsers());
-  }, []);
+    dispatch(fetchUsers(Number(params.userId)));
+  }, [dispatch, params.userId]);
 
-  const user = useAppSelector((state) =>
-    state.users.usersData.find((user) => user.id.toString() === params.userId)
-  );
-  
+  const user = usersData[0];
+
   return (
     <Layout>
-      {user && (
+      {loading && !error && <Loader />}{" "}
+      {error && <ErrorMessage errorMessage={error} />}
+      {!loading && !error && usersData && usersData.length > 0 ? (
         <Card>
           <CardHeader>
             <CardTitle>{user.name}</CardTitle>
@@ -48,9 +51,13 @@ const PersonalPage = () => {
             <p>Zip: {user.address.zipcode}</p>
           </CardContent>
           <CardFooter>
-            <Button className="bg-yellow-700" onClick={() => navigate('/users')}>Back</Button>
+            <Button className="bg-yellow-700" onClick={() => navigate("/")}>
+              Back
+            </Button>
           </CardFooter>
         </Card>
+      ) : (
+        !loading && !error && <div>No user data available.</div>
       )}
     </Layout>
   );

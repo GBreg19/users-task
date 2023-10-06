@@ -35,31 +35,17 @@ const initialState: UsersState = {
 
 export const fetchUsers = createAsyncThunk<
   UsersObject[],
-  void,
+  number | void,
   { rejectValue: string }
->("users/fetchUsers", async () => {
+>("users/fetchUsers", async (id?) => {
   const apiUrl = "https://jsonplaceholder.typicode.com/users";
   try {
-    const response = await axios.get<UsersObject[]>(apiUrl);
-    const data = response.data;
-    const convertedUserObj = data.map((user) => {
-      return {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        address: {
-          street: user.address.street,
-          suite: user.address.suite,
-          city: user.address.city,
-          zipcode: user.address.zipcode,
-          geo: {
-            lat: user.address.geo.lat,
-            lng: user.address.geo.lng,
-          },
-        },
-      };
-    });
-    return convertedUserObj;
+    if (typeof id === "number") {
+      const resp = await axios.get<UsersObject>(`${apiUrl}/${id}`);
+      return [resp.data];
+    }
+    const resp = await axios.get<UsersObject[]>(apiUrl);
+    return resp.data;
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(error.message);
@@ -73,12 +59,16 @@ export const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    isDeleting: (state) => {
-      state.deleting = true;
+    isDeleting: (state, action) => {
+      state.deleting = action.payload;
     },
-    removeUser: (state) => {},
-    isEditing: (state) => {
-      state.editing = true;
+    removeUser: (state, action: PayloadAction<number>) => {
+      state.usersData = state.usersData.filter(
+        (user) => user.id !== action.payload
+      );
+    },
+    isEditing: (state, action) => {
+      state.editing = action.payload;
     },
     editUser: (state, action: PayloadAction<number>) => {},
   },
