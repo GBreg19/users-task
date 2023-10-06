@@ -65,7 +65,7 @@ function UserForm({ user }: FormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 p-6">
         <FormField
           control={form.control}
           name="name"
@@ -118,7 +118,7 @@ function UserForm({ user }: FormProps) {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="bg-slate-100 text-black hover:bg-slate-200">Submit</Button>
       </form>
     </Form>
   );

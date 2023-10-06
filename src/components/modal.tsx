@@ -46,7 +46,7 @@ const Modal = ({ selectedUser }: ModalProps) => {
         className="fixed top-0 left-0 w-full h-full z-40 bg-white/[0.1] backdrop-blur-sm"
       ></div>
       {editing && (
-        <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-50 w-full max-w-lg border bg-cyan-950 text-white p-6 shadow-lg duration-200 flex flex-col gap-5 rounded-lg">
+        <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-50 w-full max-w-lg border bg-cyan-950 text-white p-1 shadow-lg duration-200 flex flex-col gap-5 rounded-lg">
           {isEditingUser && <UserForm user={selectedUser} />}
           {!isEditingUser && (
             <UserCard
