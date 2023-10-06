@@ -1,27 +1,25 @@
-# React + TypeScript + Vite
+## Technologies used
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+1. React: The core library for building the user interface.
 
-Currently, two official plugins are available:
+2. TypeScript: The primary language used for enhanced type checking and code quality.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+3. TailwindCSS: Used for styling the application and ensuring a responsive design.
 
-## Expanding the ESLint configuration
+4. Redux Toolkit: Utilized for state management, providing a structured and efficient way to manage application data.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+5. JSON Server: Used as a fake API to simulate data fetching and management.
 
-- Configure the top-level `parserOptions` property like this:
+## Starting the JSON Server
+## To retrieve data, follow these instructions to start the JSON Server:
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+1. Open your terminal: Launch your command-line interface or terminal application.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. Navigate to the Project Directory: Use the cd command to navigate to the directory where your project is located. For example: cd /path/to/your/project
+
+3. Run the JSON Server: Use the following command to initiate the JSON Server, providing the path to your JSON database file (db.json) and specifying the desired port (default is 3000, but here we're using port 8000): 
+## json-server --watch db.json --port 8000
+
+4. Server is Running: Once you execute the command, the JSON Server will be up and running. It will display information about the routes and endpoints available for your JSON data.
+
+You can now use this server to fetch data from your db.json file, making it accessible for your application.
