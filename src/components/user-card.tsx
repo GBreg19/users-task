@@ -32,7 +32,7 @@ const UserCard = ({ user, modal, setIsEditing = () => {} }: CardProps) => {
     if (modal) {
       dispatch(isEditing(false));
     } else {
-      navigate("/");
+      navigate("/users-task/");
     }
   };
 

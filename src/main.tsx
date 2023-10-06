@@ -15,7 +15,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/user/:userId",
+    path: "users-task/user/:userId",
     element: <PersonalPage />,
   },
 ]);
