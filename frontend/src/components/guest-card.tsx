@@ -38,7 +38,7 @@ const UserCard = ({ user, modal, setIsEditing = () => {} }: CardProps) => {
 
   return (
     user && (
-      <Card className="w-full max-w-lg">
+      <Card className="w-full max-w-lg bg-blue-300">
         <CardHeader className="text-center">
           <CardTitle>{user.name}</CardTitle>
           <CardContent className="text-sm text-slate-500">

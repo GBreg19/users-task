@@ -131,14 +131,14 @@ const GuestsTable = () => {
       </Table>
       <div className="flex gap-3 mt-3 justify-center">
         <Button
-          className="bg-slate-100 hover:bg-slate-300 text-black"
+          className="bg-indigo-700 hover:bg-indigo-600"
           onClick={handlePreviousPage}
           disabled={currentPage === 1}
         >
           Previous
         </Button>
         <Button
-          className="bg-slate-100 hover:bg-slate-300 text-black"
+          className="bg-indigo-700 hover:bg-indigo-600"
           onClick={handleNextPage}
           disabled={currentPage === totalPages}
         >
