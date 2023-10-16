@@ -1,0 +1,220 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Sandy Longbottom",
+      "email": "sandylgb@gmail.com",
+      "address": {
+        "street": "Oliver's",
+        "city": "Scranton"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Harry Potter",
+      "email": "harry@wizardmail.com",
+      "address": {
+        "street": "Privet Drive",
+        "city": "Little Whinging"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Hermione Granger",
+      "email": "hermione@smartmail.com",
+      "address": {
+        "street": "Granger Residence",
+        "city": "London"
+      }
+    },
+    {
+      "id": 4,
+      "name": "Ron Weasley",
+      "email": "ron@gingermail.com",
+      "address": {
+        "street": "The Burrow",
+        "city": "Ottery St. Catchpole"
+      }
+    },
+    {
+      "id": 5,
+      "name": "gidge",
+      "email": "dasdas@tabak.com",
+      "address": {
+        "street": "ewq",
+        "city": "ggss"
+      }
+    },
+    {
+      "id": 6,
+      "name": "Albus Dumbledore",
+      "email": "albus@hogwarts.com",
+      "address": {
+        "street": "Hogwarts Castle",
+        "city": "Hogsmeade"
+      }
+    },
+    {
+      "id": 7,
+      "name": "Severus Snape",
+      "email": "severus@potionsmail.com",
+      "address": {
+        "street": "Spinner's End",
+        "city": "Cokeworth"
+      }
+    },
+    {
+      "id": 8,
+      "name": "Sirius Black",
+      "email": "sirius@animagusmail.com",
+      "address": {
+        "street": "12 Grimmauld Place",
+        "city": "London"
+      }
+    },
+    {
+      "id": 9,
+      "name": "Remus Lupin",
+      "email": "remus@moonymail.com",
+      "address": {
+        "street": "Lupin Residence",
+        "city": "Hogsmeade"
+      }
+    },
+    {
+      "id": 10,
+      "name": "Luna Lovegood",
+      "email": "luna@quirkymail.com",
+      "address": {
+        "street": "Lovegood House",
+        "city": "Ottery St. Catchpole"
+      }
+    },
+    {
+      "id": 11,
+      "name": "Neville Longbottom",
+      "email": "neville@herbologymail.com",
+      "address": {
+        "street": "Longbottom Residence",
+        "city": "Hogsmeade"
+      }
+    },
+    {
+      "id": 12,
+      "name": "Draco Malfoy",
+      "email": "draco@purebloodmail.com",
+      "address": {
+        "street": "Malfoy Manor",
+        "city": "Wiltshire"
+      }
+    },
+    {
+      "id": 13,
+      "name": "Bellatrix Lestrange",
+      "email": "bellatrix@azkabanmail.com",
+      "address": {
+        "street": "Azkaban Prison",
+        "city": "North Sea"
+      }
+    },
+    {
+      "id": 14,
+      "name": "Dobby the House Elf",
+      "email": "dobby@freeelfmail.com",
+      "address": {
+        "street": "Hogwarts Kitchens",
+        "city": "Hogsmeade"
+      }
+    },
+    {
+      "id": 15,
+      "name": "Minerva McGonagall",
+      "email": "minerva@transfigurationmail.com",
+      "address": {
+        "street": "Hogwarts Castle",
+        "city": "Hogsmeade"
+      }
+    },
+    {
+      "id": 16,
+      "name": "Rubeus Hagrid",
+      "email": "hagrid@careofmagicalcreaturesmail.com",
+      "address": {
+        "street": "Hagrid's Hut",
+        "city": "Hogsmeade"
+      }
+    },
+    {
+      "id": 17,
+      "name": "Fred Weasley",
+      "email": "fred@jokeshopmail.com",
+      "address": {
+        "street": "Weasleys' Wizard Wheezes",
+        "city": "Diagon Alley"
+      }
+    },
+    {
+      "id": 18,
+      "name": "George Weasley",
+      "email": "george@jokeshopmail.com",
+      "address": {
+        "street": "Weasleys' Wizard Wheezes",
+        "city": "Diagon Alley"
+      }
+    },
+    {
+      "id": 19,
+      "name": "Cho Chang",
+      "email": "cho@quidditchmail.com",
+      "address": {
+        "street": "Chang Residence",
+        "city": "Hogsmeade"
+      }
+    },
+    {
+      "id": 20,
+      "name": "Cedric Diggory",
+      "email": "cedric@quidditchmail.com",
+      "address": {
+        "street": "Diggory Residence",
+        "city": "Hogsmeade"
+      }
+    },
+    {
+      "id": 21,
+      "name": "Tom Riddle",
+      "email": "tom@darkwizardmail.com",
+      "address": {
+        "street": "Riddle House",
+        "city": "Little Hangleton"
+      }
+    },
+    {
+      "id": 22,
+      "name": "Molly Weasley",
+      "email": "molly@weasleymail.com",
+      "address": {
+        "street": "The Burrow",
+        "city": "Ottery St. Catchpole"
+      }
+    },
+    {
+      "id": 23,
+      "name": "Arthur Weasley",
+      "email": "arthur@weasleymail.com",
+      "address": {
+        "street": "The Burrow",
+        "city": "Ottery St. Catchpole"
+      }
+    },
+    {
+      "id": 24,
+      "name": "Nymphadora Tonks",
+      "email": "tonks@metamorphmagusmail.com",
+      "address": {
+        "street": "Tonks Residence",
+        "city": "Hogsmeade"
+      }
+    }
+  ]
+}
